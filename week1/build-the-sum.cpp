@@ -2,24 +2,26 @@
 #include <vector>
 #include <numeric>
 
+using namespace std;
+
 void solve() {
   
   int n; 
-  std::cin >> n;
+  cin >> n;
   
-  std::vector<int> a(n);
+  vector<int> a(n);
   
   for(int i = 0; i < n;i++) {
-    std::cin >> a[i];
+    cin >> a[i];
   }
   
-  std::cout << std::accumulate(a.begin(),a.end(),0) << "\n";
+  cout << accumulate(a.begin(),a.end(),0) << "\n";
 }
 
 int main() {
   
   int t; 
-  std::cin >> t;
+  cin >> t;
   
   while(t--)
     solve();
