@@ -33,6 +33,11 @@ void solve() {
         int reward = transition.second;
         dp[step][i] = max(dp[step][i],dp[step-1][from] + reward);
       }
+      
+      if(dp[step][i] >= x) {
+        cout << step << "\n";
+        return;
+      }
     }
     
     for(int i = 1; i < n;i++) {
@@ -40,14 +45,6 @@ void solve() {
         dp[step][0] = max(dp[step][0],dp[step][i]); 
       }
     }
-    
-    for(int i = 0; i < n;i++) {
-      if(dp[step][i] >= x) {
-          cout << step << "\n";
-          return;
-       }
-    }
-    
   }
   
   cout << "Impossible" << "\n";
