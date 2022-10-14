@@ -43,11 +43,11 @@ int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(0);
   
-  int t;
-  cin >> t;
+  int n;
+  cin >> n;
   
-  while(t != 0) {
-    solve(t);
+  while(n != 0) {
+    solve(n);
     cin >> t;
   }
 
