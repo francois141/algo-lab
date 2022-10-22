@@ -11,22 +11,25 @@ int n,m,a,b,P,W,H;
 vector<pair<int,int>> A; 
 vector<int> B;
   
-vector<vector<vector<int>>> compute() {
+vector<vector<int>> compute() {
 
-  vector<vector<vector<int>>> dp(n+1,vector<vector<int>>(H+1,vector<int>(n+1,0)));
-  
-  for(int k = 1; k <= n;k++) {
-    for(int h = 0; h <= H;h++) {
-      for(int i = 0; i < n;i++) {
-        if(h - A[i].second > 0 && dp[k-1][h - A[i].second][i] == 0) {
-          dp[k][h][i+1] = dp[k][h][i];
+  vector<vector<int>> dp(n+1,vector<int>(H+1,0));
+  vector<vector<int>> dp_next = dp;
+
+  for(int i = 0; i < n;i++) {
+    for(int k = 1; k <= n;k++) {
+      for(int h = 0; h <= H;h++) {
+        if(h - A[i].second > 0 && dp[k-1][h - A[i].second] == 0) {
+          dp_next[k][h] = dp[k][h];
         }
         else {
-          dp[k][h][i+1] = max(dp[k][h][i],dp[k-1][max(h - A[i].second,0LL)][i] + A[i].first);
+          dp_next[k][h] = max(dp[k][h],dp[k-1][max(h - A[i].second,0LL)] + A[i].first);
         }
       }
     }
-  }
+    dp = dp_next;
+  } 
+
   
   return dp;
 }
@@ -50,7 +53,7 @@ void solve() {
   sort(B.begin(),B.end(),greater<int>());
   
   int ans = LLONG_MAX;
-  vector<vector<vector<int>>> dp = compute();
+  vector<vector<int>> dp = compute();
   
   for(int i = 0; i <= m;i++) {
     int W_tmp = 0,P_tmp = 0,H_tmp = 0;
@@ -61,7 +64,7 @@ void solve() {
     
     int j = 0;
     while(j < n && (P_tmp < (P + i*b) || H_tmp < H)) {
-      P_tmp = dp[j+1][H][n];
+      P_tmp = dp[j+1][H];
       H_tmp = H;
       j++;
     }
