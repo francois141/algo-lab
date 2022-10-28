@@ -45,7 +45,6 @@ int main() {
     }
     if(p == 2) {
       Program lp(CGAL::SMALLER, false, 0, true, 0); 
-
       
       lp.set_a(X,0,-1); lp.set_a(Y,0,-1); lp.set_a(Z,0,0);lp.set_b(0,4);
       lp.set_a(X,1,-4); lp.set_a(Y,1,-2); lp.set_a(Z,1,-1);lp.set_b(1,a*b);
@@ -62,7 +61,6 @@ int main() {
       } else {
         cout << ceil(CGAL::to_double(s.objective_value())) << endl;
       }
-      
     }
   }
 
