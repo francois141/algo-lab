@@ -9,7 +9,7 @@ Link to the course: https://cadmo.ethz.ch/education/lectures/HS22/algolab/index.
 3) CGAL : https://www.cgal.org/
 4) PDF about CGAL : https://graphics.stanford.edu/courses/cs368-04-spring/manuals/CGAL_Tutorial.pdf
 
-### Problems
+### Problems & solutions
 
 | Problem Statement                                                  | Solution                                                      | Score            | Week          | Topics |
 | ------------------------------------------------------------------ | ------------------------------------------------------------- | ---------------- | ------------- | ------ |
