@@ -72,40 +72,33 @@ void solve() {
     int hours = (left + right + 1) / 2;
     bool can = false; 
     
-    for(int ai = max(0, hours - bound); ai <= min(hours,bound); ai++)
-    {
+    for(int ai = max(0, hours - bound); ai <= min(hours,bound); ai++) {
       const int pi = hours - ai;
       
       if (cache[ai] > pi)
           continue;
       
-      if(possible(stalls,a[ai],p[pi]))
-      {
+      if(possible(stalls,a[ai],p[pi])) {
         can = true;
         break;
       }
-      else
-      {
+      else {
         cache[ai] = max(cache[ai], pi);
       }
     }
-    if(can) 
-    {
+    if(can) {
       best_score = hours;
       right = hours-1;
     }
-    else 
-    {
+    else {
       left = hours+1;
     }
   }
 
-  if(best_score == INT_MAX)
-  {
+  if(best_score == INT_MAX) {
     cout << "Impossible!" << "\n";
   }
-  else 
-  {
+  else {
     cout << best_score << "\n";
   }
   
