@@ -14,9 +14,9 @@ My solutions for the course algo lab 2022 given at ETHZ. This course deals with 
 
 </div>
 
-
-## Problem with solutions
 <div align="center">
+
+## Problems with solutions
 
 | Name | Challenge | Solution | Points | Week | Theme |
 | ------------- |---------------------- |------------------|-----------------|------------------|-----------------------|
@@ -57,9 +57,17 @@ My solutions for the course algo lab 2022 given at ETHZ. This course deals with 
 | Placing Knights | [File](./problems/placing%20knights.pdf) | [C++ code](./week9/Placing%20Knights.cpp) | 100 | 9 | Advanced flows |
 | Real Estate Market | [File](./problems/real%20estate%20market.pdf) | [C++ code](./week9/Real%20Estate%20Market.cpp) | 100 | 9 | Advanced flows |
 
+## Problems of the week with solutions
 
-
-
-
+| Name | Challenge | Solution | Points | Week | Theme |
+| ------------- |---------------------- |------------------|-----------------|------------------|-----------------------|
+| Deck of Cards | [File](./problems/deck_of_cards.pdf) | [C++ code](./problems-of-the-week/Deck%20of%20Cards.cpp) | 100 | 2 | Two pointers |
+| San Francisco | [File](./problems/san_francisco.pdf) | [C++ code](./problems-of-the-week/San%20Francisco.cpp) | 100 | 3 | DP - Graph |
+| Greyjoy | [File](./problems/greyjoy.pdf) | [C++ code](./problems-of-the-week/Greyjoy.cpp) | 100 | 4 | Two pointers - Sorting |
+| Tracking | [File](./problems/tracking.pdf) | [C++ code](./problems-of-the-week/Tracking.cpp) | 100 | 5 | Graph - Shortest Path |
+| Motorcycles| [File](./problems/motorcycles.pdf) | [C++ code](./problems-of-the-week/Motorcycles.cpp) | 100 | 6 | Geometry |
+| Octopussy | [File](./problems/octopussy.pdf) | [C++ code](./problems-of-the-week/Octopussy.cpp) | 100 | 7 | Greedy |
+| Augean Stable | [File](./problems/the%20augean%20stables.pdf) | [C++ code](./problems-of-the-week/Augean%20Stable.cpp) | 100 | 8 | Linear programming |
+| Knights | [File](./problems/knights.pdf) | [C++ code](./problems-of-the-week/Knights.cpp) | 100 | 9 | Flows |
 
 </div>
