@@ -1,15 +1,23 @@
-## My solutions for the course algo lab 2022 given at ETHZ
+# ALGO Lab ETHZ 2022
 
-Link to the course: https://cadmo.ethz.ch/education/lectures/HS22/algolab/index.html
+<div align="center">
 
-### Relevant links for the course (tutorials & link to libraries)
+![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white) ![CMake](https://img.shields.io/badge/CMake-%23008FBA.svg?style=for-the-badge&logo=cmake&logoColor=white)
 
-1) Boost graph library : https://www.boost.org/doc/libs/1_78_0/libs/graph/doc/index.html
-2) Tutorial about boost graph library (in french) : https://cpp.developpez.com/redaction/data/pages/users/gbdivers/boost-graph/
-3) CGAL : https://www.cgal.org/
-4) PDF about CGAL : https://graphics.stanford.edu/courses/cs368-04-spring/manuals/CGAL_Tutorial.pdf
+</div>
 
-### Problems & solutions
+My solutions for the course algo lab 2022 given at ETHZ. This course deals with various topics such as dynamic programming, greedy algorithms, graphs, flows, geometry and linear programming.
 
-| Problem Statement                                                  | Solution                                                      | Score            | Week          | Topics |
-| ------------------------------------------------------------------ | ------------------------------------------------------------- | ---------------- | ------------- | ------ |
+<div align="center">
+
+[Link to the course](https://cadmo.ethz.ch/education/lectures/HS22/algolab/index.html) • [Boost Graph Library](https://www.boost.org/doc/libs/1_78_0/libs/graph/doc/index.html) • [CGAL](https://www.cgal.org/)
+
+</div>
+
+
+## Problem with solutions
+<div align="center">
+
+| Name | Challenge | Solution | Points | Week | Theme |
+| ---- |---------- |----------|--------|------|-------|
+
