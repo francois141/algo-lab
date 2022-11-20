@@ -19,5 +19,10 @@ My solutions for the course algo lab 2022 given at ETHZ. This course deals with 
 <div align="center">
 
 | Name | Challenge | Solution | Points | Week | Theme |
-| ---- |---------- |----------|--------|------|-------|
+| ------------- |---------------------- |------------------|-----------------|------------------|-----------------------|
+| Build the sum | [File](./problems/build_the_sum.pdf) | [C++ code](./week1/Build%20the%20Sum.cpp) | 100 | 1 | STL |
+| Dominoes | [File](./problems/dominoes.pdf) | [C++ code](./week1/Dominoes.cpp) | 100 | 1 | STL |
+| Even Pairs | [File](./problems/even_pairs.pdf) | [C++ code](./week1/Even%20Pairs.cpp) | 100 | 1 | Combinatorics - Prefix sum |
+| Even Matrices | [File](./problems/even_matrices.pdf) | [C++ code](./week1/Even%20Matrices.cpp) | 100 | 1 | Combinatorics - Prefix sum |
 
+</div>
