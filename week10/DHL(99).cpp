@@ -27,9 +27,9 @@ void solve() {
       for(int k = i-1; k >= 0;k--) {
         for(int l = j-1; l >= 0;l--) {
           if(dp[k][l] != INT_MAX) {
-            dp[i][j] = min(dp[i][j],dp[k][l] + (a[i]-a[k]-(i-k)) * (b[j]-b[l]-(j-l)) );
+            dp[i][j] = min(dp[i][j],dp[k][l] + (a[i]-a[k]-(i-k)) * (b[j]-b[l]-(j-l)));
           }
-          if((a[i]-a[k]-(i-k)) >= 50 && (b[j]-b[l]-(j-l)) >= 50) {
+          if((a[i]-a[k]-(i-k)) * (b[j]-b[l]-(j-l)) >= dp[i][j]) {
             break;
           }
         }
