@@ -56,6 +56,7 @@ My solutions for the course algo lab 2022 given at ETHZ. This course deals with 
 | Casino Royale | [File](./problems/casino%20royale.pdf) | [C++ code](./week9/Casino%20Royale.cpp) | 100 | 9 | Advanced flows |
 | Placing Knights | [File](./problems/placing%20knights.pdf) | [C++ code](./week9/Placing%20Knights.cpp) | 100 | 9 | Advanced flows |
 | Real Estate Market | [File](./problems/real%20estate%20market.pdf) | [C++ code](./week9/Real%20Estate%20Market.cpp) | 100 | 9 | Advanced flows |
+| DHL | [File](./problems/dhl.pdf) | [C++ code](./week10/DHL.cpp) | 99 | 10 | DP - Greedy |
 
 ## Problems of the week with solutions
 
