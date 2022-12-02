@@ -60,6 +60,10 @@ My solutions for the course algo lab 2022 given at ETHZ. This course deals with 
 | DHL | [File](./problems/dhl.pdf) | [C++ code](./week10/DHL.cpp) | 99 | 10 | DP - Greedy |
 | New York | [File](./problems/new%20york.pdf) | [C++ code](./week10/New%20York.cpp) | 100 | 10 | Two pointers - Graph - DFS |
 | Fleetrace | [File](./problems/fleetrace.pdf) | [C++ code](./week10/Fleetrace.cpp) | 100 | 10 | Advanced flows |
+| Asterix in Switzerland | [File](./problems/asterix%20in%20switzerland.pdf) | [C++ code](./week11/Asterix%20in%20Switzerland.cpp) | 100 | 11 | Flow |
+| Sith | [File](./problems/revenge%20of%20the%20sith.pdf) | [C++ code](./week11/Sith.cpp) | 100 | 11 | Advanced geometry - Graph - Binary search |
+| The Fighting Pits of Meereen | [File](./problems/the%20fighting%20pits%20of%20meereen%20.pdf) | [C++ code](./week11/The%20Fighting%20Pits%20of%20Meereen.cpp) | 100 | 11 | DP |
+| World Cup | [Files](./problems/world%20cup.pdf) | [C++ code](./week11/Worldcup.cpp) | 100 | 11 | Advanced geometry - Linear programming
 
 ## Problems of the week with solutions
 
