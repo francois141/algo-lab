@@ -69,5 +69,7 @@ My solutions for the course algo lab 2022 given at ETHZ. This course deals with 
 | Octopussy | [File](./problems/octopussy.pdf) | [C++ code](./problems-of-the-week/Octopussy.cpp) | 100 | 7 | Greedy |
 | Augean Stable | [File](./problems/the%20augean%20stables.pdf) | [C++ code](./problems-of-the-week/Augean%20Stable.cpp) | 100 | 8 | Linear programming |
 | Knights | [File](./problems/knights.pdf) | [C++ code](./problems-of-the-week/Knights.cpp) | 100 | 9 | Flows |
+| Hands | [File](./problems/hands.pdf) | [C++ code](./problems-of-the-week/Hands.cpp) | 100 | 10 | Union find & Advanced geometry |
+
 
 </div>
