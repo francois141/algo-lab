@@ -64,6 +64,9 @@ My solutions for the course algo lab 2022 given at ETHZ. This course deals with 
 | Sith | [File](./problems/revenge%20of%20the%20sith.pdf) | [C++ code](./week11/Sith.cpp) | 100 | 11 | Advanced geometry - Graph - Binary search |
 | The Fighting Pits of Meereen | [File](./problems/the%20fighting%20pits%20of%20meereen%20.pdf) | [C++ code](./week11/The%20Fighting%20Pits%20of%20Meereen.cpp) | 100 | 11 | DP |
 | World Cup | [Files](./problems/world%20cup.pdf) | [C++ code](./week11/Worldcup.cpp) | 100 | 11 | Advanced geometry - Linear programming
+| Car Sharing | [Files](./problems/car%20sharing.pdf) | [C++ code](./week12/Car%20Sharing.cpp) | 80 | 12 | Advanced flows
+| Lord Voldemort | [Files](./problems/lord%20voldemort.pdf) | [C++ code](./week12/Lord%20Voldemort.cpp) | 100 | 12 | DP
+| On Her Majesty's Secret Service | [Files](./problems/on%20her%20majesty%E2%80%99s%20secret%20service.pdf) | [C++ code](./week12/On%20Her%20Majesty's%20Secret%20Service.cpp) | 100 | 12 | Graph - BS
 
 ## Problems of the week with solutions
 
