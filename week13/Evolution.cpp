@@ -1,7 +1,5 @@
 #include <bits/stdc++.h>
 
-#define int long
-
 using namespace std;
 
 struct Spec {
@@ -14,28 +12,28 @@ struct Query {
   int idx;
 };
 
+struct Path {
+  int index;
+  int age;
+};
+
 vector<vector<int>> graph;
-vector<bool> isChild;
 vector<vector<Query>> queries;
 vector<int> solutions;
 vector<Spec> species;
 
-vector<int> path; 
-vector<int> ages;
+vector<Path> path; 
 
 void dfs(int idx) {
-  path.push_back(idx);
-  ages.push_back(species[idx].age);
+  path.push_back({idx, species[idx].age});
   
-  for(auto q: queries[idx]) {
-    auto low = std::lower_bound(ages.begin(), ages.end(), q.max_age, std::greater<int>());
-    solutions[q.idx] = path[low-ages.begin()];
-  }
+  for(auto q: queries[idx]) solutions[q.idx] = std::lower_bound(path.begin(), path.end(), Path{0,q.max_age}, [](Path a, Path b) {
+    return a.age > b.age; 
+  })->index;
   
   for(auto c: graph[idx]) dfs(c);
   
   path.pop_back();
-  ages.pop_back();
 }
 
 void solve() {
@@ -55,7 +53,7 @@ void solve() {
   }
   
   graph = vector<vector<int>>(n,vector<int>(0));
-  isChild = vector<bool>(n,false);
+  vector<bool> isChild = vector<bool>(n,false);
   
   for(int i = 0; i < n-1;i++) {
     string a,b;
@@ -70,6 +68,7 @@ void solve() {
   for(int i = 0; i < n;i++) {
     if(!isChild[i]) {
       root = i;
+      break;
     }
   }
   
@@ -83,9 +82,8 @@ void solve() {
     queries[idx].push_back(Query{age,i});
   }
   
-  path = vector<int>(0);
-  ages = vector<int>(0);
-  
+  path = vector<Path>(0);
+
   dfs(root);
   
   for(auto ans: solutions) {
