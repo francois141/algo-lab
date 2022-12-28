@@ -21,13 +21,19 @@ typedef Triangulation::Edge Edge;
 
 using namespace std;
 
+struct Bone {
+  Point p;
+  int idx;
+  K::FT dist;
+};
+
 void solve() {
   
   int n,m,s,k;
   cin >> n >> m >> s >> k;
   
   vector<pair<Point,int>> positions = vector<pair<Point,int>>(n);
-  vector<pair<Point,int>> bones = vector<pair<Point,int>>(m);
+  vector<Bone> bones = vector<Bone>(m);
   
   for(int i = 0; i < n;i++) {
     int x,y;
@@ -38,7 +44,7 @@ void solve() {
   for(int j = 0; j < m;j++) {
     int x,y;
     cin >> x >> y;
-    bones[j] = make_pair(Point(x,y),0);
+    bones[j] = {Point(x,y),0,0};
   }
   
   Triangulation t;
@@ -56,9 +62,9 @@ void solve() {
   
   vector<int> values = vector<int>(n,0);
   for(auto bone : bones) {
-    Point p = t.nearest_vertex(bone.first)->point();
-    int idx = t.nearest_vertex(bone.first)->info();
-    if(CGAL::squared_distance(p,bone.first) <= s / 4) {
+    Point p = t.nearest_vertex(bone.p)->point();
+    int idx = t.nearest_vertex(bone.p)->info();
+    if(CGAL::squared_distance(p,bone.p) <= s / 4) {
       values[uf.find_set(idx)]++;
     }
   }
@@ -70,7 +76,9 @@ void solve() {
   }
   
   for(int j = 0; j < m;j++) {
-    bones[j].second = t.nearest_vertex(bones[j].first)->info();
+    auto tmp =  t.nearest_vertex(bones[j].p);
+    bones[j].idx = tmp->info();
+    bones[j].dist = CGAL::squared_distance(tmp->point(),bones[j].p);
   }
   
   sort(edges.begin(),edges.end(), [&](auto e1, auto e2) -> bool {
@@ -78,7 +86,7 @@ void solve() {
   });
   
   sort(bones.begin(),bones.end(), [&](auto b1, auto b2) -> bool {
-    return b1.first < b2.first;
+    return b1.dist < b2.dist;
   });
   
   int start = 0;
@@ -92,21 +100,23 @@ void solve() {
     
     dist = (start + end) / 2;
   
-    for(auto e = t.finite_edges_begin(); e != t.finite_edges_end(); ++e) {
-      auto s1 = e->first->vertex((e->second + 1) % 3);
-      auto s2 = e->first->vertex((e->second + 2) % 3);
+    for(auto e: edges) {
+      auto s1 = e.first->vertex((e.second + 1) % 3);
+      auto s2 = e.first->vertex((e.second + 2) % 3);
       if(CGAL::squared_distance(s1->point(),s2->point()) <= dist) {
         uf.link(s1->info(),s2->info());
-      } 
+      } else {
+        break;
+      }
     }
     
     vector<int> values = vector<int>(n,0);
     for(auto bone : bones) {
-      Point p = t.nearest_vertex(bone.first)->point();
-      int idx = t.nearest_vertex(bone.first)->info();
-      if(CGAL::squared_distance(p,bone.first) <= dist / 4) {
-        values[uf.find_set(idx)]++;
-      } 
+      if(bone.dist <= dist / 4) {
+        values[uf.find_set(bone.idx)]++;
+      } else {
+        break;
+      }
     }
     
     if(*max_element(values.begin(),values.end()) < k) {
