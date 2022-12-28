@@ -81,14 +81,43 @@ void solve() {
     return b1.first < b2.first;
   });
   
-  /*int start = 0;
-  int end = 1e15;
+  int start = 0;
+  int end = 1e16;
+  
+  int dist = 0;
   
   while(start != end) {
     
-  }*/
+    boost::disjoint_sets_with_storage<> uf(n);
+    
+    dist = (start + end) / 2;
   
-  cout << std::fixed << *max_element(values.begin(),values.end()) << " " << 4*s << "\n";
+    for(auto e = t.finite_edges_begin(); e != t.finite_edges_end(); ++e) {
+      auto s1 = e->first->vertex((e->second + 1) % 3);
+      auto s2 = e->first->vertex((e->second + 2) % 3);
+      if(CGAL::squared_distance(s1->point(),s2->point()) <= dist) {
+        uf.link(s1->info(),s2->info());
+      } 
+    }
+    
+    vector<int> values = vector<int>(n,0);
+    for(auto bone : bones) {
+      Point p = t.nearest_vertex(bone.first)->point();
+      int idx = t.nearest_vertex(bone.first)->info();
+      if(CGAL::squared_distance(p,bone.first) <= dist / 4) {
+        values[uf.find_set(idx)]++;
+      } 
+    }
+    
+    if(*max_element(values.begin(),values.end()) < k) {
+      start = dist+1;
+    } else {
+      end = dist;
+    }
+    
+  }
+  
+  cout << std::fixed << *max_element(values.begin(),values.end()) << " " << max(dist,start) << "\n";
 }
 
 signed main() {
