@@ -22,7 +22,6 @@ int totalValue;
 int timeSpent;
 
 void traverse(int idx) {
-  
   ver[idx].t = 0;
   ver[idx].s = 1;
   
@@ -33,12 +32,13 @@ void traverse(int idx) {
   }
   
   sort(graph[idx].begin(),graph[idx].end(),[](const Edge &e1, const Edge &e2) -> bool {
-    return ver[e1.to].s * (ver[e2.to].t + 2*e2.time) > ver[e2.to].s * (ver[e1.to].t + 2*e1.time);
+    int lost1 = ver[e1.to].s * (ver[e2.to].t + 2*e2.time);
+    int lost2 = ver[e2.to].s * (ver[e1.to].t + 2*e1.time);
+    return lost2 < lost1;
   });
 }
 
 void traverse2(int idx) {
-  
   totalValue -= timeSpent; 
   
   for(Edge e : graph[idx]) {
@@ -53,24 +53,25 @@ void solve() {
   
   int n; cin >> n;
   
-  g = vector<int>(n+1,0);
+  g = vector<int>(n+1,0l);
   for(int i = 1; i <= n;i++) cin >> g[i];
   
   graph = vector<vector<Edge>>(n+1,vector<Edge>(0));
   for(int i = 0; i < n;i++) {
-    int u,v,l; cin >> u >> v >> l;
+    int u,v,l;
+    cin >> u >> v >> l;
     graph[u].push_back({v,l});
   }
   
   ver = vector<Vertex>(n+1);
   
   timeSpent = 0;
-  totalValue = accumulate(g.begin(),g.end(),0);
+  totalValue = accumulate(g.begin(),g.end(),0l);
   
   traverse(0);
   traverse2(0);
   
-  cout << totalValue << endl;
+  cout << totalValue << "\n";
 }
 
 signed main() {
