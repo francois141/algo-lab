@@ -81,6 +81,11 @@ My solutions for the course algo lab 2022 given at ETHZ. This course deals with 
 | Augean Stable | [File](./problems/the%20augean%20stables.pdf) | [C++ code](./problems-of-the-week/Augean%20Stable.cpp) | 100 | 8 | Linear programming |
 | Knights | [File](./problems/knights.pdf) | [C++ code](./problems-of-the-week/Knights.cpp) | 100 | 9 | Flows |
 | Hands | [File](./problems/hands.pdf) | [C++ code](./problems-of-the-week/Hands.cpp) | 100 | 10 | Union find & Advanced geometry |
+| Ceryneian Hind | [File](./problems/ceryneian%20hind.pdf) | [C++ code](./problems-of-the-week/Ceryneian%20Hind.cpp) | 100 | 11 | Flows |
+| Rubeus Hagrid | [File](./problems/rubeus_hagrid.pdf) | [C++ code](./problems-of-the-week/Rubeus%20Hagrid.cpp) | 100 | 12 | Greedy |
+| Strikesback | [File](./problems/strikesback.pdf) | [C++ code](./problems-of-the-week/Strikesback.cpp) | 100 | 13 | Advanced geometry & Linear programming |
+| Ludo Bagman | [File](./problems/ludo%20bagman.pdf) | [C++ code](./problems-of-the-week/Ludo%20Bagman.cpp) | 100 | 14 | Advanced flows |
+
 
 
 </div>
