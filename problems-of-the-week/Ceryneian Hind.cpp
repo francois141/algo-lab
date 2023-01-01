@@ -36,49 +36,40 @@ void solve() {
   int n,m;
   cin >> n >> m;
   
-  vector<int> conv(n);
-  vector<pair<int,int>> edges(m);
+  vector<int> scores = vector<int>(n);
+  for(int i = 0; i < n;i++) cin >> scores[i];
   
-  for(int i = 0; i < n;i++) {
-    cin >> conv[i];
-  }
-  
-  int max_value = accumulate(conv.begin(),conv.end(),0,[](int a,int b) -> int{
-    return abs(a) + abs(b);
-  });
-  
-  int max_positives = accumulate(conv.begin(),conv.end(),0,[](int a,int b) -> int{
-    return max(a,0) + max(b,0);
+  int sum_positive = accumulate(scores.begin(),scores.end(),0,[](int a, int b) -> int {
+    return max(a,0)+max(b,0);
   });
   
   graph G(n);
   edge_adder adder(G);
   
-  const auto v_source = boost::add_vertex(G);
-  const auto v_sink = boost::add_vertex(G);
+  auto v_source = boost::add_vertex(G);
+  auto v_sink = boost::add_vertex(G);
   
   for(int i = 0; i < m;i++) {
-    int from,to;
-    cin >> from >> to;
-    adder.add_edge(from,to,max_value);
+    int u,v;
+    cin >> u >> v;
+    adder.add_edge(u,v,sum_positive);
   }
-  
+
   for(int i = 0; i < n;i++) {
-    if(conv[i] >= 0) {
-      adder.add_edge(v_source,i,conv[i]);
-    }
-    else {
-      adder.add_edge(i,v_sink,abs(conv[i]));
+    if(scores[i] >= 0) {
+      adder.add_edge(v_source,i,scores[i]);
+    } else {
+      adder.add_edge(i,v_sink,abs(scores[i]));
     }
   }
   
-  int flow = boost::push_relabel_max_flow(G, v_source, v_sink);
-  long best = max_positives - flow;
-  if(best > 0) {
-    cout << best << "\n";    
-  }
-  else {
+  int flow = boost::push_relabel_max_flow(G,v_source,v_sink);
+  int ans = sum_positive - flow;
+  
+  if(ans == 0) {
     cout << "impossible" << "\n";
+  } else {
+    cout << ans << "\n";
   }
 }
 
