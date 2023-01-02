@@ -34,7 +34,7 @@ My solutions for the course algo lab 2022 given at ETHZ. This course deals with 
 | Important Bridges | [File](./problems/important%20bridges.pdf) | [C++ code](./week3/Important%20Bridges.cpp) | 100 | 3 | Graph - DFS |
 | Antenna | [File](./problems/antenna.pdf) | [C++ code](./week4/Antenna.cpp) | 100 |  4 |  Geometry |
 | First Hit | [File](./problems/firsthit.pdf) | [C++ code](./week4/First%20Hit.cpp) | 100 | 4 | Geometry |
-| Hiking Map | [File](./problems/hiking-maps.pdf) | [C++ code](./week4/Hiking%20Map.cpp) | 100 | 4 | Geometry |
+| Hiking Map | [File](./problems/hiking-maps.pdf) | [C++ code](./week4/Hiking%20Map.cpp) | 100 | 4 | Geometry - Two pointers |
 | Hit | [File](./problems/hit.pdf) | [C++ code](./week4/First%20Hit.cpp) | 100 | 4 | Geometry |
 | Asterix the Gaul | [File](./problems/asterix_the_gaul.pdf) | [C++ code](./week5/Asterix%20the%20Gaul.cpp) | 100 | 5 | Binary Search - Split & List |
 | Boats | [File](./problems/boats.pdf) | [C++ code](./week5/Boats.cpp) | 100 | 5 | Greedy |
