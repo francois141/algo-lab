@@ -40,7 +40,6 @@ void solve() {
   int equation = 0;
   
   for(int i = 0; i < n;i++) {
-    Fraction fraction(1,0);
     for(int j = 0; j < m;j++) {
       int cx = 2*abs(positions[i].first - hanging[j].first) - w;
       int cy = 2*abs(positions[i].second - hanging[j].second) - h;
