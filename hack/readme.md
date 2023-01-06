@@ -6,4 +6,4 @@ This code fails the sample test but get 100 pts
 
 ### DHL
 
-The submitted code is wrong but get 100 pts
+The submitted code is wrong but get 99 pts (last point is a challenge)
