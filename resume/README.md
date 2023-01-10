@@ -252,7 +252,30 @@ Line line = Line(p1, p2);
 Ray ray = Ray(start_point, direction);
 Triangle triangle = Triangle(p1,p2,p3);
 Circle circle = Circle(c1,c2,c3);
+
 ```
+
+#### Ceil & floor
+
+```cpp
+double floor_to_double(const K::FT& x)
+{
+    double a = std::floor(CGAL::to_double(x));
+    while (a > x) a -= 1;
+    while (a+1 <= x) a += 1;
+    return a;
+}
+
+double ceil_to_double(const K::FT& x)
+{
+    double a = std::ceil(CGAL::to_double(x));
+    while (a > x) a -= 1;
+    while (a+1 <= x) a += 1;
+    return a;
+}
+```
+
+### Algorithms
 
 #### Intersections & distance
 
@@ -290,27 +313,9 @@ Traits::Circle c = mc.circle();
 std::cout << c.center() << " " << c.squared_radius() << "\n";
 ```
 
-#### Ceil & floor
 
-```cpp
-double floor_to_double(const K::FT& x)
-{
-    double a = std::floor(CGAL::to_double(x));
-    while (a > x) a -= 1;
-    while (a+1 <= x) a += 1;
-    return a;
-}
 
-double ceil_to_double(const K::FT& x)
-{
-    double a = std::ceil(CGAL::to_double(x));
-    while (a > x) a -= 1;
-    while (a+1 <= x) a += 1;
-    return a;
-}
-```
 
-### Algorithms
 
 ## Techniques
 
