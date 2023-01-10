@@ -225,7 +225,95 @@ void strong_connected_comp(const graph &G) {
 }
 ```
 
-
 ## CGAL
 
+### Basics
+
+#### Kernels
+
+```cpp
+typedef CGAL::Exact_predicates_inexact_constructions_kernel K;
+typedef CGAL::Exact_predicates_exact_constructions_kernel K;
+typedef CGAL::Exact_predicates_exact_constructions_kernel_with_sqrt K;
+```
+
+#### Basics types
+
+```cpp
+typedef K::Point_2 Point;
+typedef K::Line_2 Line;
+typedef K::Ray_2 Ray;
+typedef K::Triangle_2 Triangle;
+typedef K::Circle_2 Circle;
+typedef K::FT FT;
+
+Point point = Point(x,y);
+Line line = Line(p1, p2);
+Ray ray = Ray(start_point, direction);
+Triangle triangle = Triangle(p1,p2,p3);
+Circle circle = Circle(c1,c2,c3);
+```
+
+#### Intersections & distance
+
+```cpp
+
+// Check for intersection
+if (CGAL::do_intersect(s[i],s[j])) {
+    // Compute intersection
+    auto o = CGAL::intersection(s[i],s[j]);
+    if (const Point* op = boost::get<Point>(&*o))
+        std::cout << "point: " << *op << "\n";
+    else if (const Segment* os = boost::get<Segment>(&*o))
+        std::cout << "segment: " << os->source() << " " << os->target() << "\n";
+    else 
+        throw std::runtime_error("strange segment intersection");
+}
+
+// Get distance between two points
+auto distance = CGAL::squared_distance(p1,p2);
+```
+
+#### Get minimum enclosing cercle
+
+```cpp
+
+#include <CGAL/Min_circle_2.h>
+#include <CGAL/Min_circle_2_traits_2.h>
+
+typedef CGAL::Min_circle_2_traits_2<K> Traits;
+typedef CGAL::Min_circle_2<Traits> Min_circle;
+
+Min_circle mc(Points.begin(), Points.end(), true);
+
+Traits::Circle c = mc.circle();
+std::cout << c.center() << " " << c.squared_radius() << "\n";
+```
+
+#### Ceil & floor
+
+```cpp
+double floor_to_double(const K::FT& x)
+{
+    double a = std::floor(CGAL::to_double(x));
+    while (a > x) a -= 1;
+    while (a+1 <= x) a += 1;
+    return a;
+}
+
+double ceil_to_double(const K::FT& x)
+{
+    double a = std::ceil(CGAL::to_double(x));
+    while (a > x) a -= 1;
+    while (a+1 <= x) a += 1;
+    return a;
+}
+```
+
+### Algorithms
+
 ## Techniques
+
+## LP
+
+## Flows
