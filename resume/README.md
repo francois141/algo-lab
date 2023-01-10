@@ -313,12 +313,93 @@ Traits::Circle c = mc.circle();
 std::cout << c.center() << " " << c.squared_radius() << "\n";
 ```
 
+### Triangulation
+
+### Definitions
+
+#### Basic triangulation with no information
+
+```cpp
+#include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
+#include <CGAL/Delaunay_triangulation_2.h>
+
+// Definitions
+typedef CGAL::Exact_predicates_inexact_constructions_kernel K;
+typedef CGAL::Delaunay_triangulation_2<K> Triangulation;
+
+// Triangulation object
+Triangulation t;
+// Insert points
+t.insert(points.begin(),points.end());
+```
+
+#### Basic triangulation with vertex information
+
+```cpp
+#include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
+#include <CGAL/Delaunay_triangulation_2.h>
+// Also include this file
+#include <CGAL/Triangulation_vertex_base_with_info_2.h>
+
+// Definitions
+typedef CGAL::Exact_predicates_inexact_constructions_kernel K;
+typedef CGAL::Triangulation_vertex_base_with_info_2<int,K> Vb;
+typedef CGAL::Triangulation_face_base<K> Fb;
+typedef CGAL::Triangulation_data_structure_2<Vb,Fb> Tds;
+typedef CGAL::Delaunay_triangulation_2<K,Tds> Triangulation;
+
+typedef K::Point_2 Point;
+
+vector<pair<Point,int>> points;
+
+// Triangulation object
+Triangulation t;
+// Insert points
+t.insert(points.begin(),points.end());
+```
+
+#### Iterate over faces, edges & vertices
+
+```cpp
+typedef Triangulation::Finite_faces_iterator Face_iterator;
+typedef Triangulation::Finite_edges_iterator Edte_iterator;
+typedef Triangulation::Finite_vertices_iterator Vertex_iterator;
+
+for (Face_iterator f = t.finite_faces_begin(); f != t.finite_faces_end(); ++f) {
+    std::cout << t.triangle(f) << endl;
+}
+    
+for (Edge_iterator e = t.finite_edges_begin(); e != t.finite_edges_end(); ++e) {
+    std::cout << t.segment(e) << endl;
+    
+    // Get edge length
+    auto length = t.segment(e).squared_length();
+
+    // Get vertices
+    Triangulation::Vertex_handle v1 = e->first->vertex((e->second + 1) % 3);
+    Triangulation::Vertex_handle v2 = e->first->vertex((e->second + 2) % 3);
+
+    // Print point
+    std::cout << "e = " << v1->point() << " <-> " << v2->point() << std::endl;
+
+    // Print informations
+    std::cout << "i = " << v1->info() << " <-> " << v2->info() << std::endl;
+}
+
+for (Vertex_iterator v = t.finite_vertices_begin(); e != t.finite_vertices_end(); ++e) {
+    std::cout << v->point() << " " v->info() << endl;
+}
+```
+
+#### Incident edges from a vertex
 
 
+```cpp
+Triangulation::Vertex_handle v = handle;
 
-
-## Techniques
-
-## LP
-
-## Flows
+Triangulation::Edge_circulator c = t.incident_edges(v);
+do {
+if (t.is_infinite(c)) { ... }
+    // Do something with the edges here
+} while (++c != t.incident_edges(v));
+```
