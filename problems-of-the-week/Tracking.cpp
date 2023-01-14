@@ -1,24 +1,26 @@
-#include <iostream>
-#include <vector>
-
+///4
+#include <bits/stdc++.h>
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/dijkstra_shortest_paths.hpp>
 
+typedef boost::adjacency_list<boost::vecS, boost::vecS, boost::undirectedS,
+  boost::no_property, boost::property<boost::edge_weight_t, int> >      graph;
+
 using namespace std;
 
-typedef boost::adjacency_list<boost::vecS,boost::vecS,boost::undirectedS,boost::no_property,boost::property<boost::edge_weight_t,int>> graph;
+int dijkstra_dist(const graph &G, int s, int t) {
+  int n = boost::num_vertices(G);
+  std::vector<int> dist_map(n);
 
-int compute(const graph &G, int from, int to) {
-  
-  vector<int> distances(boost::num_vertices(G));
-  
-  boost::dijkstra_shortest_paths(G,from,boost::distance_map(boost::make_iterator_property_map(distances.begin(),boost::get(boost::vertex_index,G))));
+  boost::dijkstra_shortest_paths(G, s,
+    boost::distance_map(boost::make_iterator_property_map(
+      dist_map.begin(), boost::get(boost::vertex_index, G))));
 
-  return distances[to];
+  return dist_map[t];
 }
 
+
 void solve() {
-  
   int n,m,k,x,y;
   cin >> n >> m >> k >> x >> y;
   
@@ -28,21 +30,16 @@ void solve() {
     int a,b,c,d;
     cin >> a >> b >> c >> d;
     
-    for(int i = 0; i < k;i++) {
-      boost::add_edge(a + n*i,b + n*(i+d),c,G);
-      boost::add_edge(a + n*(i+d),b + n*i,c,G);
+    for(int j = 0; j <= k; j++) {
+      boost::add_edge(j*n+a ,min(j+d,k)*n + b,c,G);
+      boost::add_edge(j*n+b ,min(j+d,k)*n + a,c,G);
     }
-    
-    boost::add_edge(a + n*k,b + n*k,c,G);
   }
   
-  cout << compute(G,x,n*k + y) << "\n";
-  
-  return;
+  cout << dijkstra_dist(G,x,k*n + y) << "\n";
 }
 
-int main() {
-  
+signed main() {
   ios_base::sync_with_stdio(false);
   cin.tie(0);
   
