@@ -3,9 +3,7 @@
 using namespace std;
 
 void solve() {
-  
-  int n;
-  cin >> n;
+  int n; cin >> n;
   
   vector<int> t(n);
   for(int i = 0; i < n;i++)
@@ -38,4 +36,4 @@ signed main() {
     solve();
   
   return 0;
-}
+}*/
