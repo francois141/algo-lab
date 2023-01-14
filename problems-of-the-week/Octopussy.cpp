@@ -1,9 +1,4 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <queue>
-
-#define int long long
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -16,7 +11,7 @@ void solve() {
   for(int i = 0; i < n;i++)
     cin >> t[i];
   
-  for(int i = 1; 2*i + 2 < n;i++) {
+  for(int i = 1; i < n;i++) {
     int parent = (i - 1) / 2;
     t[i] = min(t[i],t[parent]-1);
   }
