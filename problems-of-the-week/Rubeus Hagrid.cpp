@@ -50,7 +50,6 @@ void traverse2(int idx) {
 
 
 void solve() {
-  
   int n; cin >> n;
   
   g = vector<int>(n+1,0l);
@@ -75,7 +74,6 @@ void solve() {
 }
 
 signed main() {
-  
   ios_base::sync_with_stdio(false);
   cin.tie(0);
   
