@@ -26,8 +26,6 @@ vector<Participant> playersLeft(vector<Participant> &participants, vector<Point_
 
   Triangulation t;
   t.insert(lamps.begin()+left,lamps.begin()+middle);
-
-  int count = 0;
   
   for(int i = 0; i < participants.size();i++) {
     Point_2 nearest_lamp = t.nearest_vertex(participants[i].pos)->point();
