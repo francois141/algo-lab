@@ -1,6 +1,4 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
+#include <bits/stdc++.h>
 
 #include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
 #include <CGAL/Point_2.h>
@@ -61,7 +59,9 @@ void solve(int n) {
   return;
 }
 
-int main() {
+sined main() {
+  ios_base::sync_with_stdio(false);
+  cin.tie(0);
   
   int n;
   cin >> n;
