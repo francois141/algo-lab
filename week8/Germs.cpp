@@ -12,12 +12,11 @@ typedef Triangulation::Vertex_iterator Vertex_iterator;
 using namespace std;
 
 // Given the distance ==> Say how long it takes before it collides
-double transform(double distance) {
+inline double transform(double distance) {
   return sqrt((sqrt(distance) - 1) / 2);
 }
 
 void solve(int n) {
-  
   int left, bottom, right, top;
   cin >> left >> bottom >> right >> top;
   
