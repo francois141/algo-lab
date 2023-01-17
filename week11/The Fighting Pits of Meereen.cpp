@@ -69,8 +69,7 @@ int solve(int idx, Q north, Q south, int diff) {
     best = max(best,val_south + solve(idx-1, north,new_south,diff-1));
   }
   
-  dp[idx][key.q1][key.q2][key.q3] = best;
-  return best;
+  return dp[idx][key.q1][key.q2][key.q3] = best;
 }
 
 void solve() {
