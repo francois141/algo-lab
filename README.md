@@ -6,7 +6,7 @@
 
 </div>
 
-My solutions for the course algo lab 2022 given at ETHZ. This course deals with various topics such as dynamic programming, greedy algorithms, graphs, flows, geometry and linear programming.
+My solutions for the course algo lab 2022 given at ETHZ. This course deals with various topics such as dynamic programming, binary search, greedy algorithms, graphs, flows, geometry and linear programming. 
 
 <div align="center">
 
