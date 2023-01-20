@@ -1,3 +1,4 @@
+///1
 #include <bits/stdc++.h>
 
 #include <CGAL/Exact_predicates_exact_constructions_kernel.h>
@@ -44,6 +45,27 @@ void solve() {
   
   auto min_squared_radius = K::FT(LONG_MAX);
   for(auto e = t.finite_edges_begin(); e != t.finite_edges_end(); ++e) {
+    auto v_left = e->first->vertex((e->second + 1) % 3);
+    auto v_right = e->first->vertex((e->second + 2) % 3); 
+    Point midpoint = CGAL::midpoint(v_left->point(), v_right->point());
+    int v_nearest = t.nearest_vertex(midpoint)->info();
+    
+    auto f1 = e->first;
+    auto f2 = t.mirror_edge(*e).first;
+    auto f1_radius = get_face_radius(t,f1);
+    auto f2_radius = get_face_radius(t,f2);
+    
+    auto max_radius = max(f1_radius,f2_radius);
+    
+    auto min_radius = t.segment(*e).squared_length() / 4;
+    if(v_nearest != v_left->info() && v_nearest != v_right->info()) {
+      min_radius = min(f1_radius,f2_radius);
+    } 
+    
+    if(K::FT(s) >= min_radius && K::FT(s) <= max_radius) {
+      a_s++;
+    }
+
     auto distance = t.segment(e).squared_length();
     if(distance < min_squared_radius) {
       a_2 = 1;
@@ -64,7 +86,7 @@ void solve() {
     }
   }
   
-  cout << a_2 << " " << a_3 << " " << h << " " << h << "\n";
+  cout << a_2 << " " << a_3 << " " << a_s << " " << h << "\n";
 }
 
 signed main() {
