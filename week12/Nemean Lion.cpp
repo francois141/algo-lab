@@ -1,4 +1,3 @@
-///1
 #include <bits/stdc++.h>
 
 #include <CGAL/Exact_predicates_exact_constructions_kernel.h>
