@@ -1,80 +1,74 @@
+///1
 #include <bits/stdc++.h>
+
 #include <CGAL/Exact_predicates_exact_constructions_kernel.h>
 #include <CGAL/Delaunay_triangulation_2.h>
-
-typedef CGAL::Exact_predicates_exact_constructions_kernel K;
-
-typedef CGAL::Delaunay_triangulation_2<K> Triangulation;
-typedef CGAL::Point_2<K> Point;
-typedef CGAL::Circle_2<K> Circle;
-typedef K::FT Float;
-
-typedef Triangulation::Finite_faces_iterator Face_iterator;
-typedef Triangulation::Finite_edges_iterator Edge_iterator;
-typedef Triangulation::Finite_vertices_iterator Vertex_iterator;
-
-typedef Triangulation::Edge Edge;
+#include <CGAL/Triangulation_vertex_base_with_info_2.h>
+#include <CGAL/Triangulation_face_base_2.h>
 
 #define int long
 
 using namespace std;
 
+typedef CGAL::Exact_predicates_exact_constructions_kernel K;
+typedef CGAL::Triangulation_vertex_base_with_info_2<int,K> Vb;
+typedef CGAL::Triangulation_face_base_2<K> Fb;
+typedef CGAL::Triangulation_data_structure_2<Vb,Fb> Tds;
+typedef CGAL::Delaunay_triangulation_2<K, Tds> Triangulation;
+
+typedef CGAL::Point_2<K> Point;
+typedef CGAL::Circle_2<K> Circle;
+
+K::FT get_face_radius(Triangulation &t, Triangulation::Face_handle f) {
+  if(t.is_infinite(f)) return K::FT(LONG_MAX);
+  return Circle(f->vertex(0)->point(),f->vertex(1)->point(),f->vertex(2)->point()).squared_radius();
+}
+
 void solve() {
-  Float s;
-  int n,h;
+  int n,s,h;
   cin >> n >> s >> h;
   
-  vector<Point> points(n);
+  vector<pair<Point,int>> points(n);
   for(int i = 0; i < n;i++) {
     int x,y;
     cin >> x >> y;
-    points[i] = Point(x,y);
-  }
+    points[i] = make_pair(Point(x,y),i);
+  } 
   
   Triangulation t;
   t.insert(points.begin(),points.end());
   
-  int ans1 = 0;
-  Float best_distance1 = LONG_MAX;
-  int count1 = 0;
+  int a_2 = 0;
+  int a_3 = 0;
+  int a_s = 0;
+  int a_max = 0;
   
-  for(Edge_iterator it = t.finite_edges_begin(); it != t.finite_edges_end(); ++it) {
-    if(best_distance1 > t.segment(*it).squared_length()) {
-      best_distance1 = t.segment(*it).squared_length();
-      count1 = 1;
-    } 
-    else if(best_distance1 == t.segment(*it).squared_length()) {
-      count1++;
+  auto min_squared_radius = K::FT(LONG_MAX);
+  for(auto e = t.finite_edges_begin(); e != t.finite_edges_end(); ++e) {
+    auto distance = t.segment(e).squared_length();
+    if(distance < min_squared_radius) {
+      a_2 = 1;
+      min_squared_radius = distance;
+    } else if(distance == min_squared_radius) {
+      a_2++;
     }
-    ans1 = max(ans1,count1);
   }
   
-  int ans2 = 0;
-  Float best_distance2 = LONG_MAX;
-  int count2 = 0;
-  
-  for(Face_iterator it = t.finite_faces_begin(); it != t.finite_faces_end(); ++it) {
-    
-    Point p1 = it->vertex(0)->point();
-    Point p2 = t.dual(it);
-    Float dist = CGAL::squared_radius(p1,p2);
-  
-    if(dist < best_distance2) {
-      best_distance2 = dist;
-      count2 = 1;
-    } 
-    else if(best_distance2 == dist) {
-      count2++;
-    }    
-    
-    ans2 = max(ans2,count2);
+  auto min_squared_3 = K::FT(LONG_MAX);
+  for(auto f = t.finite_faces_begin(); f != t.finite_faces_end(); ++f) {
+    auto radius = get_face_radius(t,f);
+    if(radius < min_squared_3) {
+      min_squared_3 = radius;
+      a_3 = 1;
+    } else if(radius == min_squared_3) {
+      a_3++;
+    }
   }
   
-  cout << ans1 << " " << ans2 << " " << h << " " << h << "\n";
+  cout << a_2 << " " << a_3 << " " << h << " " << h << "\n";
 }
 
 signed main() {
-  
   ios_base::sync_with_stdio(false);
   cin.tie(0);
   
@@ -83,5 +77,4 @@ signed main() {
   
   while(t--)
     solve();
-  
 }
