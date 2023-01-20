@@ -67,7 +67,7 @@ My solutions for the course algo lab 2022 given at ETHZ. This course deals with 
 | Car Sharing | [Files](./problems/car%20sharing.pdf) | [C++ code](./week12/Car%20Sharing.cpp) | 80 | 12 | Advanced flows
 | Lord Voldemort | [Files](./problems/lord%20voldemort.pdf) | [C++ code](./week12/Lord%20Voldemort.cpp) | 100 | 12 | DP
 | On Her Majesty's Secret Service | [Files](./problems/on%20her%20majesty%E2%80%99s%20secret%20service.pdf) | [C++ code](./week12/On%20Her%20Majesty's%20Secret%20Service.cpp) | 100 | 12 | Graph - BS
-| Nemean Lion| [Files](./problems/nemean%20lion.pdf) | [C++ code](./week12/Nemean%20Lion.cpp.cpp) | 60 | 12 | Advanced geometry
+| Nemean Lion| [Files](./problems/nemean%20lion.pdf) | [C++ code](./week12/Nemean%20Lion.cpp) | 80 | 12 | Advanced geometry
 | Marathon | [Files](./problems/marathon.pdf) | [C++ code](./week13/Marathon.cpp) | 100 | 13 | Shortest path - flows
 | Asterix and the Chariot Race | [Files](./problems/asterix%20and%20the%20chariot%20race.pdf) | [C++ code](./week13/Asterix%20and%20the%20Chariot%20Race.cpp) | 100 | 13 | DP - Trees
 | Evolution | [Files](./problems/evolution.pdf) | [C++ code](./week13/Evolution.cpp) | 100 | 13 | Binary Search - Trees
