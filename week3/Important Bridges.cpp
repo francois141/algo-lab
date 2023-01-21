@@ -1,9 +1,9 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
+#include <bits/stdc++.h>
 
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/biconnected_components.hpp>
+
+#define int long
 
 using namespace std;
 
@@ -23,7 +23,6 @@ typedef boost::graph_traits<graph>::edge_descriptor edge_descriptor;
 typedef boost::graph_traits<graph>::vertex_descriptor vertex_descriptor;
 
 void solve() {
-  
   int n,m;
   cin >> n >> m;
   
@@ -37,7 +36,7 @@ void solve() {
   
   boost::property_map<graph,boost::edge_component_t>::type component = boost::get(boost::edge_component,G);
   int nums_components = biconnected_components(G,component);
-
+  
   vector<vector<edge_descriptor>> connections(nums_components,vector<edge_descriptor>(0));
   
   boost::graph_traits<graph>::edge_iterator ei, ei_end;
@@ -63,16 +62,15 @@ void solve() {
   for(auto e : results) {
     cout << e.first << " " << e.second << "\n";
   }
-  
-  return;
 }
 
-int main() {
+signed main() {
+  ios_base::sync_with_stdio(false);
+  cin.tie(0);
   
   int t;
   cin >> t;
   
   while(t--)
     solve();
- 
 }
