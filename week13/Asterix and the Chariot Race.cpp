@@ -1,71 +1,82 @@
 #include <bits/stdc++.h>
 
-using namespace std;
-
 #define int long
 
-vector<vector<int>> graph;
-vector<int> prices;
+using namespace std;
 
 struct City {
-  int noNeed;
+  int repared;
+  int noneed;
   int need;
-  int hasCity;
 };
 
-int min(City c) {
-  return min(c.noNeed,min(c.need,c.hasCity));
-}
+vector<vector<int>> graph;
+vector<int> costs;
+vector<City> dp;
 
-City compute(int idx) {
-  
-  if(graph[idx].size() == 0) return City{prices[idx],0,prices[idx]};
-  
-  vector<City> childs = vector<City>(0);
-  for(auto child : graph[idx]) childs.push_back(compute(child));
-  
-  int hasCity = prices[idx];
-  for(City c : childs) hasCity += min(c);
-  
-  int noNeed = 0;
-  int diff = LONG_MAX;
-  for(City c : childs) {
-    noNeed += c.noNeed;
-    diff = min(c.hasCity - c.noNeed,diff);
+void compute(int idx) {
+  // Base case
+  if(graph[idx].size() == 0) {
+    dp[idx] = {costs[idx],costs[idx],0};
+    return;
   }
-  if(diff > 0) noNeed += diff;
   
-  int need = 0;
-  for(City c : childs) need += min(c.hasCity,c.noNeed);
+  // Recursive case
+  City tmp = {0,0,0};
+  for(auto child: graph[idx]) {
+    compute(child);
+  }
   
-  return {min(noNeed,hasCity),need,hasCity};
+  // Case 1 
+  tmp.repared = costs[idx];
+  for(auto child: graph[idx]) {
+    tmp.repared += min({dp[child].repared,dp[child].noneed,dp[child].need});
+
+  }
+  // Case 2
+  int min_diff = INT_MAX;
+  for(auto child: graph[idx]) {
+    tmp.noneed += min({dp[child].repared,dp[child].noneed});
+    min_diff = min(min_diff, dp[child].repared - dp[child].noneed);
+  }
+  tmp.noneed += max(0l,min_diff);
+  tmp.noneed = min(tmp.repared,tmp.noneed);
+  
+  // Case 3
+  for(auto child: graph[idx]) {
+    tmp.need += min({dp[child].repared,dp[child].noneed});
+  }
+
+  dp[idx] = tmp;
 }
 
 void solve() {
-  int n; cin >> n;
+  int n;
+  cin >> n;
   
   graph = vector<vector<int>>(n,vector<int>(0));
-  prices= vector<int>(n);
-  
   for(int i = 0; i < n-1;i++) {
-    int from,to;
+    int from; 
+    int to;
     cin >> from >> to;
     graph[from].push_back(to);
   }
   
-  for(int i = 0;i < n;i++) cin >> prices[i];
+  costs =  vector<int>(n);
+  for(int i = 0; i < n;i++) cin >> costs[i];
   
-  City c = compute(0);
+  dp = vector<City>(n);
   
-  cout << min(c.noNeed,c.hasCity) << endl;
+  compute(0);
+  cout << min(dp[0].repared, dp[0].noneed) << "\n";
 }
 
 signed main() {
-  
   ios_base::sync_with_stdio(false);
-  cin.tie(0); 
+  cin.tie(0);
   
-  int t; cin >> t;
+  int t;
+  cin >> t;
   
   while(t--)
     solve();
