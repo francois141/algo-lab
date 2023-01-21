@@ -57,7 +57,7 @@ My solutions for the course algo lab 2022 given at ETHZ. This course deals with 
 | Placing Knights | [File](./problems/placing%20knights.pdf) | [C++ code](./week9/Placing%20Knights.cpp) | 100 | 9 | Advanced flows |
 | Real Estate Market | [File](./problems/real%20estate%20market.pdf) | [C++ code](./week9/Real%20Estate%20Market.cpp) | 100 | 9 | Advanced flows |
 | Clues | [File](./problems/clues.pdf) | [C++ code](./week10/Clues.cpp) | 100 | 10 | Graphs - Matchings - Advanced geometry |
-| DHL | [File](./problems/dhl.pdf) | [C++ code](./week10/DHL.cpp) | 99 | 10 | DP - Greedy |
+| DHL | [File](./problems/dhl.pdf) | [C++ code](./week10/DHL.cpp) | 100 | 10 | DP |
 | New York | [File](./problems/new%20york.pdf) | [C++ code](./week10/New%20York.cpp) | 100 | 10 | Two pointers - Graph - DFS |
 | Fleetrace | [File](./problems/fleetrace.pdf) | [C++ code](./week10/Fleetrace.cpp) | 100 | 10 | Advanced flows |
 | Asterix in Switzerland | [File](./problems/asterix%20in%20switzerland.pdf) | [C++ code](./week11/Asterix%20in%20Switzerland.cpp) | 100 | 11 | Flow |
