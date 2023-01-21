@@ -42,10 +42,13 @@ void solve() {
   int a_s = 0;
   int a_max = 0;
   
+  vector<pair<K::FT,int>> events;
+  
   auto min_squared_radius = K::FT(LONG_MAX);
   for(auto e = t.finite_edges_begin(); e != t.finite_edges_end(); ++e) {
     auto v_left = e->first->vertex((e->second + 1) % 3);
     auto v_right = e->first->vertex((e->second + 2) % 3); 
+    
     Point midpoint = CGAL::midpoint(v_left->point(), v_right->point());
     int v_nearest = t.nearest_vertex(midpoint)->info();
     
@@ -54,16 +57,20 @@ void solve() {
     auto f1_radius = get_face_radius(t,f1);
     auto f2_radius = get_face_radius(t,f2);
     
-    auto max_radius = max(f1_radius,f2_radius);
-    
-    auto min_radius = t.segment(*e).squared_length() / 4;
+    K::FT min_radius;
+    K::FT max_radius = max(f1_radius,f2_radius);
     if(v_nearest != v_left->info() && v_nearest != v_right->info()) {
       min_radius = min(f1_radius,f2_radius);
-    } 
+    } else {
+      min_radius = t.segment(*e).squared_length() / 4;
+    }
     
     if(K::FT(s) >= min_radius && K::FT(s) <= max_radius) {
       a_s++;
     }
+    
+    events.push_back(make_pair(min_radius,0));
+    events.push_back(make_pair(max_radius,1));
 
     auto distance = t.segment(e).squared_length();
     if(distance < min_squared_radius) {
@@ -85,7 +92,16 @@ void solve() {
     }
   }
   
-  cout << a_2 << " " << a_3 << " " << a_s << " " << h << "\n";
+  sort(events.begin(),events.end());
+  int curr = 0;
+  
+  for(auto e: events) {
+    if(e.second == 0) curr++;
+    else curr--;
+    a_max = max(a_max,curr);
+  } 
+  
+  cout << a_2 << " " << a_3 << " " << a_s << " " << a_max << "\n";
 }
 
 signed main() {
