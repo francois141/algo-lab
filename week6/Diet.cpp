@@ -1,4 +1,4 @@
-#include <iostream>
+#include <bits/stdc++.h>
 
 #include <CGAL/QP_models.h>
 #include <CGAL/QP_functions.h>
@@ -12,8 +12,7 @@ typedef CGAL::Quadratic_program_solution<ET> Solution;
 
 using namespace std;
 
-int main() {
-  
+signed main() {
   int n,m;
   cin >> n >> m;
   
