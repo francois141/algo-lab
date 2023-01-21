@@ -1,47 +1,33 @@
 #include <bits/stdc++.h>
 
+#define int long
+
 using namespace std;
 
 void solve() {
-  
   int n;
   cin >> n;
   
-  vector<int> a(n+1,0);
-  vector<int> b(n+1,0);
+  vector<int> a(n,0);
+  vector<int> b(n,0);
   
-  for(int i = 1; i <= n;i++) {
-    cin >> a[i]; 
-    a[i] += a[i-1];
-  }
-  for(int j = 1; j <= n;j++) {
-    cin >> b[j];
-    b[j] += b[j-1];
-  }
+  for(int i = 0; i < n;i++) cin >> a[i];
+  for(int i = 0; i < n;i++) cin >> b[i];
 
-  vector<vector<int>> dp(n+1,vector<int>(n+1,INT_MAX));
+  vector<vector<int>> dp(n + 1, vector<int>(n + 1, INT_MAX));
   dp[0][0] = 0;
   
-  for(int i = 1; i <= n;i++) {
-    for(int j = 1; j <= n;j++) {
-      for(int k = i-1; k >= 0;k--) {
-        for(int l = j-1; l >= 0;l--) {
-          if(dp[k][l] != INT_MAX) {
-            dp[i][j] = min(dp[i][j],dp[k][l] + (a[i]-a[k]-(i-k)) * (b[j]-b[l]-(j-l)));
-          }
-          if((a[i]-a[k]-(i-k)) * (b[j]-b[l]-(j-l)) >= dp[i][j]) {
-            break;
-          }
-        }
-      }
+  for (int i = 1; i <= n; i++) {
+    for (int j = 1; j <= n; j++) {
+      int pred = min({dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]});
+      dp[i][j] = pred + (a[i - 1] - 1) * (b[j - 1] - 1);
     }
   }
-    
-  cout << dp.back().back() << "\n";
+
+  cout << dp.back().back() << "\n"; 
 }
 
-int main() {
-  
+signed main() {
   ios_base::sync_with_stdio(false);
   cin.tie(0);
   
