@@ -1,118 +1,94 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <climits>
+#include <bits/stdc++.h>
 
-#define int long long
+#define int long
 
 using namespace std;
 
-typedef struct Move {
-  int dist;
-  int time;
-  bool operator <(const Move &other) const {
-    return time < other.time;
+struct Move {
+  int d;
+  int t;
+  bool operator<(const Move &other) const {
+    return this->t < other.t;
   }
-} Move;
+};
 
-vector<Move> moves;
 int n,m,D,T;
+vector<Move> moves;
 
-void getMoves(vector<Move>& move,int i,int end,int boost,int distance,int timeLeft) {
-  
-  if(timeLeft <= 0)
+void generate(vector<Move> &curr, int from, int to, int boost, Move move) {
+  if(move.t >= T) return;
+  if(from == to) {
+    curr.push_back(move);
     return;
-    
-  if(i == end) {
-    if(distance >= 0) {
-      move.push_back({distance,T - timeLeft});
-    }
-    return; 
   }
   
-  getMoves(move,i+1,end,boost,distance + moves[i].dist + boost,timeLeft - moves[i].time);
-  getMoves(move,i+1,end,boost,distance,timeLeft);
+  generate(curr,from+1,to,boost,move);
+  generate(curr,from+1,to,boost,{move.d + moves[from].d + boost, move.t + moves[from].t});
 }
 
-bool reach(int boost) {
+bool compute(int boost) {
+  vector<Move> moves1(0); generate(moves1, 0,n/2,boost,Move{0,0}); 
+  vector<Move> moves2(0); generate(moves2, n/2,n,boost,Move{0,0});
 
-  vector<Move> p1;
-  vector<Move> p2; 
+  sort(moves1.begin(),moves1.end());
+  sort(moves2.begin(),moves2.end());
   
-  getMoves(p1,0,n/2,boost,0,T);
-  getMoves(p2,n/2,n,boost,0,T);
+  for(int i = 1; i < moves1.size(); i++) moves1[i].d = max(moves1[i].d,moves1[i-1].d); 
+  for(int i = 1; i < moves2.size(); i++) moves2[i].d = max(moves2[i].d,moves2[i-1].d); 
   
-  sort(p1.begin(),p1.end());
-  sort(p2.begin(),p2.end());
-  
-  for(int i = 1; i < p1.size();i++) {
-    p1[i].dist = max(p1[i].dist,p1[i-1].dist);
-  }
-  
-  for(int i = 1; i < p2.size();i++) {
-    p2[i].dist = max(p2[i].dist,p2[i-1].dist);
-  }
-  
-  for(auto move : p1) {
-    auto move2 = lower_bound(p2.begin(), p2.end(), T - move.time,[&](const Move &move, int value){
-      return move.time < value;
+  for(auto mv1 : moves1) {
+    auto mv2 = lower_bound(moves2.begin(),moves2.end(),T - mv1.t,[](Move m,int t){
+      return m.t < t;
     }) - 1;
-    
-    if(move.dist + move2->dist >= D)
+    if(mv2->d + mv1.d >= D) 
       return true;
-  }  
+  }
   
   return false;
 }
 
 void solve() {
-  
+
   cin >> n >> m >> D >> T;
   
-  moves = vector<Move>(0);
+  moves = vector<Move>(n);
   for(int i = 0; i < n;i++) {
     int d,t;
     cin >> d >> t;
-    moves.push_back({d,t});
+    moves[i] = {d,t};
   }
   
-  vector<int> s(m+2);
-  s[0] = 0;
+  vector<int> boost(m+2,0);
   for(int i = 1; i <= m;i++) {
-    cin >> s[i];
+    cin >> boost[i];
   }
   
-  // Binary search over the solution space
   int start = 0;
   int end = m+1;
   
   while(start != end) {
     int middle = (start + end) / 2;
-    
-    if(reach(s[middle])) {
+    if(compute(boost[middle])) {
       end = middle;
     } else {
-      start = middle+1;
+      start = middle + 1;
     }
-  }
-  if(start == m+1) 
+  } 
+  
+  if(start == m+1) {
     cout << "Panoramix captured" << "\n";
-  else
-    cout << start << "\n"; 
-    
-  return;
+  } else {
+    cout << start << "\n";
+  }
 }
 
 signed main() {
-  
-  ios_base::sync_with_stdio(false);
-  cin.tie(0);
-  
-  int t;
-  cin >> t;
-  
-  while(t--)
-    solve();
-  
-  return 0;
+ ios_base::sync_with_stdio(false);
+ cin.tie(0);
+ 
+ int t;
+ cin >> t;
+ 
+ while(t--)
+  solve();
 }
