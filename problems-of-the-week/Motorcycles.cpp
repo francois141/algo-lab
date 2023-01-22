@@ -1,6 +1,4 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
+#include <bits/stdc++.h>
 
 #include <CGAL/Exact_predicates_exact_constructions_kernel.h>
 #include <CGAL/Point_2.h>
@@ -81,7 +79,6 @@ void solve() {
 }
 
 signed main() {
-  
   ios_base::sync_with_stdio(false);
   cin.tie(0);
   
