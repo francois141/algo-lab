@@ -39,7 +39,7 @@ My solutions for the course algo lab 2022 given at ETHZ. This course deals with 
 | Asterix the Gaul | [File](./problems/asterix_the_gaul.pdf) | [C++ code](./week5/Asterix%20the%20Gaul.cpp) | 100 | 5 | Binary Search - Split & List |
 | Boats | [File](./problems/boats.pdf) | [C++ code](./week5/Boats.cpp) | 100 | 5 | Greedy |
 | Moving Books | [File](./problems/moving_books.pdf) | [C++ code](./week5/Moving%20Books.cpp) | 100 | 5 | Greedy |
-| Severs Snape | [File](./problems/severus_snape.pdf) | [C++ code](./week5/Severus%20Snape.cpp) | 100 | 5 | Greedy - DP |
+| Severus Snape | [File](./problems/severus_snape.pdf) | [C++ code](./week5/Severus%20Snape.cpp) | 100 | 5 | Greedy - DP |
 | Diet | [File](./problems/diet.pdf) | [C++ code](./week6/Diet.cpp) | 100 | 6 | Linear programming |
 | Inball | [File](./problems/inball.pdf) | [C++ code](./week6/Inball.cpp) | 100 | 6 | Linear programming |
 | Maximize it!| [File](./problems/what%20is%20the%20maximum.pdf) | [C++ code](./week6/Maximize%20it!.cpp) | 100 | 6 | Linear programming |
