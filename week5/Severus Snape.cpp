@@ -1,9 +1,6 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <climits>
+#include <bits/stdc++.h>
 
-#define int long long
+#define int long
 
 using namespace std;
 
@@ -23,7 +20,7 @@ vector<vector<int>> compute() {
           dp_next[k][h] = dp[k][h];
         }
         else {
-          dp_next[k][h] = max(dp[k][h],dp[k-1][max(h - A[i].second,0LL)] + A[i].first);
+          dp_next[k][h] = max(dp[k][h],dp[k-1][max(h - A[i].second,0L)] + A[i].first);
         }
       }
     }
@@ -35,7 +32,6 @@ vector<vector<int>> compute() {
 }
 
 void solve() {
-  
   cin >> n >> m >> a >> b >> P >> H >> W;
   
   A = vector<pair<int,int>>(n);
@@ -52,7 +48,7 @@ void solve() {
   
   sort(B.begin(),B.end(),greater<int>());
   
-  int ans = LLONG_MAX;
+  int ans = LONG_MAX;
   vector<vector<int>> dp = compute();
   
   for(int i = 0; i <= m;i++) {
@@ -74,7 +70,7 @@ void solve() {
     }
   }
   
-  ans = (ans == LLONG_MAX) ? -1 : ans;
+  ans = (ans == LONG_MAX) ? -1 : ans;
   
   cout << ans << "\n"; 
   
@@ -82,6 +78,8 @@ void solve() {
 }
 
 signed main() {
+  ios_base::sync_with_stdio(false);
+  cin.tie(0);
   
   int t;
   cin >> t;
