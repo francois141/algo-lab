@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
 
+#define int long
+
 using namespace std;
 
 struct Boat {
@@ -51,7 +53,6 @@ void solve() {
 }
 
 signed main() {
-  
   ios_base::sync_with_stdio(false);
   cin.tie(0);
   
