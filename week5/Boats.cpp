@@ -10,7 +10,6 @@ struct Boat {
 };
 
 void solve() {
-  
   int n;
   cin >> n;
   
@@ -25,30 +24,28 @@ void solve() {
   });
   
   int max_score = 0;
-  
-  int last_pos = INT_MIN;
+  int last_position = INT_MIN;
   int idx = 0;
   
-  while(idx != n) {
+  while(idx < n) {
+    int current_position = INT_MAX;
     
-    int cur_pos = INT_MAX;
-    
-    while(idx != n) {
-      if(boats[idx].position >= cur_pos) {
+    while(idx < n) {
+      int position = boats[idx].position;
+      int length = boats[idx].length;
+      int start = position - length;
+      
+      if(position >= current_position) {
         max_score++;
-        last_pos = cur_pos;
+        last_position = current_position;
         break;
       }
-      if(cur_pos > max(boats[idx].position-boats[idx].length,last_pos) + boats[idx].length) {
-        cur_pos = max(boats[idx].position-boats[idx].length,last_pos) + boats[idx].length;
-      }
       
+      current_position = min(current_position,max(start,last_position) + length);
       idx++;
     }
-    
   }
   
-
   cout << max_score+1 << "\n";
 }
 
