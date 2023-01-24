@@ -1,89 +1,63 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <climits>
+#include <bits/stdc++.h>
 
 using namespace std;
 
-typedef struct boat {
+struct Boat {
+  int position;
   int length;
-  int pos;
-} boat;
+};
 
 void solve() {
   
   int n;
   cin >> n;
   
-  vector<boat> boats(0);
+  vector<Boat> boats(n);
   for(int i = 0; i < n;i++) {
-    int l,p;
-    cin >> l >> p;
-    boats.push_back({l,p});
+    cin >> boats[i].length;
+    cin >> boats[i].position;
   }
   
-  sort(boats.begin(),boats.end(),[&](const boat &a,const boat &b) -> bool {
-    return a.pos < b.pos;
+  sort(boats.begin(),boats.end(), [](auto b1,auto b2) {
+    return b1.position < b2.position;
   });
   
-  int pos_last = INT_MIN;
-  int score = 0;
-  int last_index = -1;
+  int max_score = 0;
   
-  while(true) {
+  int last_pos = INT_MIN;
+  int idx = 0;
+  
+  while(idx != n) {
     
-    int current_score = INT_MAX;
-    bool found = false;
+    int cur_pos = INT_MAX;
     
-    int i = last_index + 1;
-    
-    while(i < n) {
-      
-      int position = boats[i].pos;
-      int length = boats[i].length;
-      
-      int boat_start = max(pos_last, position - length);
-      
-      if(boat_start > position) {
-        i++;
-        continue;
-      }
-      
-      if(boat_start > current_score) {
+    while(idx != n) {
+      if(boats[idx].position >= cur_pos) {
+        max_score++;
+        last_pos = cur_pos;
         break;
       }
-
-      int end = boat_start + length;
-      if(end < current_score) {
-        current_score = end;
-        found = true;
-        last_index = i;
+      if(cur_pos > max(boats[idx].position-boats[idx].length,last_pos) + boats[idx].length) {
+        cur_pos = max(boats[idx].position-boats[idx].length,last_pos) + boats[idx].length;
       }
-      i++;
-    }
-    
-    if(!found) {
-      break;
-    } 
-    else {
-      pos_last = current_score;
-      score++;
+      
+      idx++;
     }
     
   }
   
-  cout << score << "\n";
-  
-  return;
+
+  cout << max_score+1 << "\n";
 }
 
-int main() {
+signed main() {
+  
+  ios_base::sync_with_stdio(false);
+  cin.tie(0);
   
   int t;
   cin >> t;
   
   while(t--)
     solve();
-  
-  return 0;
 }
