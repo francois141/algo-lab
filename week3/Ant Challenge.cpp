@@ -1,69 +1,73 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
+#include <bits/stdc++.h>
 
 #include <boost/graph/adjacency_list.hpp>
-#include <boost/graph/dijkstra_shortest_paths.hpp>
 #include <boost/graph/kruskal_min_spanning_tree.hpp>
+#include <boost/graph/dijkstra_shortest_paths.hpp>
+
+#define int long 
 
 using namespace std;
 
-typedef boost::adjacency_list<boost::vecS,boost::vecS,boost::undirectedS,boost::no_property,boost::property<boost::edge_weight_t,int>> graph;
-typedef boost::graph_traits<graph>::edge_descriptor edge_descriptor;
-typedef boost::property_map<graph,boost::edge_weight_t>::type edge_weights;
+typedef boost::adjacency_list<boost::vecS, boost::vecS, boost::undirectedS,
+  boost::no_property, boost::property<boost::edge_weight_t, int> >      graph;
+typedef boost::property_map<graph, boost::edge_weight_t>::type weight_map;
+typedef boost::graph_traits<graph>::edge_descriptor            edge_desc;
+typedef boost::graph_traits<graph>::vertex_descriptor          vertex_desc;
 
-int shortest_path(int from, int to, graph &G) {
-  
-  vector<int> dist(boost::num_vertices(G));
-  
-  boost::dijkstra_shortest_paths(G,from,boost::distance_map(boost::make_iterator_property_map(dist.begin(),boost::get(boost::vertex_index,G))));
-  
-  return dist[to];
+int dijkstra_dist(const graph &G, int s, int t) {
+  int n = boost::num_vertices(G);
+  std::vector<int> dist_map(n);
+
+  boost::dijkstra_shortest_paths(G, s,
+    boost::distance_map(boost::make_iterator_property_map(
+      dist_map.begin(), boost::get(boost::vertex_index, G))));
+
+  return dist_map[t];
 }
 
 void solve() {
-  
   int n,e,s,a,b;
   cin >> n >> e >> s >> a >> b;
   
-  vector<graph> networks = vector<graph>(s,graph(n));
-  
+  vector<graph> networks(s,graph(n));
   for(int i = 0; i < e;i++) {
     int from,to;
     cin >> from >> to;
     for(int j = 0; j < s;j++) {
-      int value;
-      cin >> value;
-      boost::add_edge(from,to,value,networks[j]);
+      int w;
+      cin >> w;
+      boost::add_edge(from,to,w,networks[j]);
     }
   }
   
-  for(int i = 0; i < s;i++) {
-    int tmp;
-    cin >> tmp;
-  }
+  int tmp;
+  for(int i = 0; i < s; i++) cin >> tmp;
   
-  graph new_network(n);
+  graph final(n);
   
-  for(int i = 0; i < s;i++) {
-    vector<edge_descriptor> vertices(0);
-    boost::kruskal_minimum_spanning_tree(networks[i],back_inserter(vertices));
-    edge_weights e = get(boost::edge_weight,networks[i]);
+  for(auto net : networks) {
+    std::vector<edge_desc> mst;
+    boost::kruskal_minimum_spanning_tree(net, std::back_inserter(mst));
     
-    for(auto tmp : vertices) {
-      boost::add_edge(boost::source(tmp,networks[i]),boost::target(tmp,networks[i]),e[tmp],new_network);
+    auto weights = boost::get(boost::edge_weight,net);
+    
+    for (std::vector<edge_desc>::iterator it = mst.begin(); it != mst.end(); ++it) {
+      boost::add_edge(boost::source(*it, net),boost::target(*it, net),weights[*it],final);
     }
   }
   
-  cout << shortest_path(a,b,new_network) << "\n";
-  return;
+  cout << dijkstra_dist(final,a,b) << endl;
 }
 
-int main() {
+signed main() {
+  ios_base::sync_with_stdio(false);
+  cin.tie(0);
   
   int t;
   cin >> t;
   
   while(t--)
     solve();
+    
+  return 0;
 }
