@@ -1,45 +1,41 @@
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
 
 #include <CGAL/Exact_predicates_exact_constructions_kernel_with_sqrt.h>
 #include <CGAL/Min_circle_2.h>
 #include <CGAL/Min_circle_2_traits_2.h>
 
+#define int long
+
 using namespace std;
 
 typedef CGAL::Exact_predicates_exact_constructions_kernel_with_sqrt K;
-typedef CGAL::Min_circle_2_traits_2<K> Circle_trait;
-typedef CGAL::Min_circle_2<Circle_trait> Min_circle;
-typedef K::Point_2 P;
+typedef CGAL::Point_2<K> Point;
+typedef CGAL::Min_circle_2_traits_2<K>  Traits;
+typedef CGAL::Min_circle_2<Traits>      Min_circle;
 
-void ceil_to_cout(const K::FT& x) {
+double ceil_to_double(const K::FT& x) {
   double a = ceil(CGAL::to_double(x));
   while(a < x) a += 1; 
-  while(a-1>= x) a -= 1;
-  cout  << fixed << setprecision(0) << a << "\n";
+  while(a-1 >= x) a -= 1;
+  return a;
 }
 
 void solve(int n) {
-
-  vector<P> points;
+  vector<Point> points(n);
   
   for(int i = 0; i < n;i++) {
-    long int x,y;
+    int x,y;
     cin >> x >> y;
-    points.push_back(P(x,y));
+    points[i] = Point(x,y);
   }
   
-  Min_circle min_circle(points.begin(),points.end(),true);
-  Circle_trait::Circle circle = min_circle.circle();
-  
-  ceil_to_cout(sqrt(circle.squared_radius()));
-  
-  return;
+  Min_circle mc(points.begin(), points.end(), true);
+  Traits::Circle c = mc.circle();
+  cout << fixed << setprecision(0);
+  std::cout << ceil_to_double(sqrt(c.squared_radius())) << "\n";
 }
 
-
-int main() {
-  
+signed main() {
   ios_base::sync_with_stdio(false);
   cin.tie(0);
   
@@ -48,8 +44,8 @@ int main() {
   
   while(n != 0) {
     solve(n);
-    cin >> t;
+    cin >> n;
   }
-
+  
   return 0;
 }
