@@ -1,9 +1,14 @@
-#include <iostream>
+#include <bits/stdc++.h>
+
 #include <boost/graph/adjacency_list.hpp>
 #include <boost/graph/cycle_canceling.hpp>
 #include <boost/graph/push_relabel_max_flow.hpp>
 #include <boost/graph/successive_shortest_path_nonnegative_weights.hpp>
 #include <boost/graph/find_flow_cost.hpp>
+
+#define int long
+
+using namespace std;
 
 typedef boost::adjacency_list_traits<boost::vecS, boost::vecS, boost::directedS> traits;
 typedef boost::adjacency_list<boost::vecS, boost::vecS, boost::directedS, boost::no_property,
@@ -37,43 +42,35 @@ public:
   }
 };
 
-using namespace std;
 
-
-void solve()
-{
+void solve() {
   int n,m,l;
   cin >> n >> m >> l;
   
-  const int max_priority = 128;
-  
+  int max_priority = 2<<8;
   graph G(n);
   edge_adder adder(G);
-    
+  
   auto v_source = boost::add_vertex(G);
   auto v_sink = boost::add_vertex(G);
-  
-  for(int i = 0; i < n-1;i++) {
-    adder.add_edge(i,i+1,l,max_priority);
-  }
-  
+    
   adder.add_edge(v_source,0,l,0);
   adder.add_edge(n-1,v_sink,l,0);
+  
+  for(int i = 0; i < n-1;i++) adder.add_edge(i,i+1,l,max_priority);
   
   for(int i = 0; i < m;i++) {
     int x,y,q;
     cin >> x >> y >> q;
-    adder.add_edge(x,y,1,max_priority*(y-x)-q);
+    adder.add_edge(x,y,1,max_priority * (y - x) - q);
   }
-
+   
   boost::successive_shortest_path_nonnegative_weights(G, v_source, v_sink);
-  long flow = boost::find_flow_cost(G);
-  flow = l * max_priority * (n - 1) - flow;
-  cout << flow << endl;
+  int cost = boost::find_flow_cost(G);
+  cout << max_priority * (n-1) * l - cost << "\n";
 }
 
-int main()
-{
+signed main() {
   ios_base::sync_with_stdio(false);
   cin.tie(0); 
   
