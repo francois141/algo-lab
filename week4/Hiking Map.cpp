@@ -1,123 +1,95 @@
 #include <bits/stdc++.h>
 
 #include <CGAL/Exact_predicates_exact_constructions_kernel.h>
-#include <CGAL/Point_2.h>
-#include <CGAL/Segment_2.h>
-#include <CGAL/Triangle_2.h>
 
 typedef CGAL::Exact_predicates_exact_constructions_kernel K;
-typedef K::Point_2 Point;
-typedef K::Line_2 Line;
-typedef K::Triangle_2 Triangle;
+typedef CGAL::Point_2<K> Point;
+typedef CGAL::Line_2<K> Line;
+typedef CGAL::Triangle_2<K> Triangle;
 
 using namespace std;
 
-Point read_point() {
-  int a,b;
-  cin >> a >> b;
-  return Point(a,b);
+inline Point read_point() {
+  int x,y; cin >> x >> y;
+  return Point(x,y);
 }
 
-Line read_line() {
-  int a,b; cin >> a >> b;
-  int c,d; cin >> c >> d;
-  return Line(Point(a,b),Point(c,d));
-}
-
-Triangle read_triangle() {
-
-  Line l1 = read_line();
-  Line l2 = read_line();
-  Line l3 = read_line();
-  
-  auto o1 = CGAL::intersection(l1,l2);
-  auto o2 = CGAL::intersection(l1,l3);
-  auto o3 = CGAL::intersection(l2,l3);
-
-  const Point *t1 = boost::get<Point>(&*o1);
-  const Point *t2 = boost::get<Point>(&*o2);
-  const Point *t3 = boost::get<Point>(&*o3);
-  
-  return Triangle(*t1,*t2,*t3);
+inline bool check(const vector<Point> &points, const Point &point) {
+  return !CGAL::right_turn(points[0],points[1],point) && !CGAL::right_turn(points[2],points[3],point) && !CGAL::right_turn(points[4],points[5],point);
 }
 
 void solve() {
-  
   int n,m;
   cin >> m >> n;
   
-  vector<Point> points;
-  points.reserve(m);
-
-  for(int i = 0; i < m; i++) {
-    points.push_back(read_point());
+  vector<Point> points = vector<Point>(m);
+  for(int i = 0; i < m;i++) {
+    points[i] = read_point();
   }
   
-  vector<vector<bool>> covers(n,vector<bool>(m-1,false));
-  Triangle triangle;
+  vector<vector<Point>> triangles = vector<vector<Point>>(n,vector<Point>(0));
   for(int i = 0; i < n; i++) {
-    triangle = read_triangle();
-    vector<bool> inside(m);
+    for(int j = 0; j < 6; j++) {
+      int x,y;
+      cin >> x >> y;
+      triangles[i].push_back(Point(x,y));
+    }
+    for(int j = 0; j < 6;j+=2) {
+      if(CGAL::right_turn(triangles[i][j],triangles[i][j+1],triangles[i][(j+2) % 6])) std::swap(triangles[i][j],triangles[i][j+1]); 
+    }
+  }
+  
+  vector<vector<bool>> contains(n,vector<bool>(m-1,false));
+  
+  for(int i = 0; i < n;i++) {
+    vector<bool> inside(m,false);
     for(int j = 0; j < m;j++) {
-      inside[j] = CGAL::do_intersect(triangle,points[j]);
+      if(check(triangles[i],points[j]))
+        inside[j] = true;
     }
     for(int j = 0; j < m-1;j++) {
-      if(inside[j] && inside[j+1]) {
-        covers[i][j] = true;
-      }
+      if(inside[j] && inside[j+1]) contains[i][j] = true;
     }
   }
   
-  const int length = m-1;
-  vector<int> mask(length,0);
+  int best = INT_MAX;
+  int start = -1;
+  int end = 0;
   
-  int count = 0;
-  int answer = INT_MAX;
+  int counter = 0;
+  vector<int> mask(m-1,0);
   
-  int left = 0;
-  int right = 0;
-  
-  for(; left < n; left++) {
-    for(int k = 0; k < length;k++) {
-      if(covers[left][k]) {
-        if(mask[k] == 0) 
-          count++;
-        mask[k]++;
+  while(start != n-1) {
+    start++;
+    for(int j = 0; j < m-1;j++) {
+      if(contains[start][j]) {
+        if(mask[j] == 0) counter++;
+        mask[j]++;
       }
     }
-    if(count < length)
-      continue;
-    while(right < left) {
-      bool can = true;
-      for(int k = 0; k < length;k++) {
-        if(mask[k] <= 1 && covers[right][k]) {
-          can = false;
-          break;
+    
+    while(counter == m-1) {
+      best = min(best,start-end+1);
+      for(int j = 0; j < m-1;j++) {
+        if(contains[end][j]) {
+          mask[j]--;
+          if(mask[j] == 0) counter--; 
         }
       }
-      if(!can) 
-        break;
-      for(int k = 0; k < length;k++) {
-        if(covers[right][k]) 
-          mask[k]--;
-      }
-      right++;
+      end++;
     }
-    answer = min(answer, left - right + 1);
   }
   
-  cout << answer << "\n";
+  cout << best << "\n";
 }
 
-int main() {
-  
+signed main() {
   ios_base::sync_with_stdio(false);
   cin.tie(0);
   
-  int c;
-  cin >> c;
+  int t;
+  cin >> t;
   
-  while(c--) 
+  while(t--)
     solve();
-  
 }
