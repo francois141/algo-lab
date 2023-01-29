@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
 
+#define int long
+
 using namespace std;
 
 typedef vector<int> VI;
