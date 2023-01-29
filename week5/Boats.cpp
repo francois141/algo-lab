@@ -1,3 +1,4 @@
+///1
 #include <bits/stdc++.h>
 
 #define int long
@@ -25,31 +26,32 @@ void solve() {
   
   int max_score = 0;
   int last_position = INT_MIN;
+  
   int idx = 0;
   
   while(idx < n) {
-    int current_position = INT_MAX;
+
+    int best_score = INT_MAX;
     
     while(idx < n) {
       int position = boats[idx].position;
       int length = boats[idx].length;
-      int start = position - length;
       
-      if(position >= current_position) {
-        max_score++;
-        last_position = current_position;
-        break;
-      }
-      
-      current_position = min(current_position,max(start,last_position) + length);
+      if(position >= best_score) break;
+
+      best_score = min(best_score,max(last_position,position-length) + length);
       idx++;
     }
+    
+    max_score++;
+    last_position = best_score;
   }
   
-  cout << max_score+1 << "\n";
+  cout << max_score << "\n";
 }
 
 signed main() {
+  
   ios_base::sync_with_stdio(false);
   cin.tie(0);
   
